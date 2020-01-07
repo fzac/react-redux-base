@@ -21,7 +21,7 @@
     "@babel/register": "^7.7.7",
     "@babel/runtime": "^7.7.6",
     "aphrodite": "^1.2.5",
-    "axios": "^0.17.1",
+    "axios": "^0.18.1",
     "css-mqpacker": "^7.0.0",
     "html-webpack-plugin": "^3.2.0",
     "lodash": "^4.17.15",
