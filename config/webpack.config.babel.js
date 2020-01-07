@@ -2,20 +2,22 @@ import path from 'path';
 
 const src = path.resolve(__dirname, '../src');
 const dist = path.resolve(__dirname, '../dist');
-const filename = process.env.NODE_ENV === 'development' ? '/js/bundle.js' : 'js/[hash].js';
 
 export default {
   entry: [
+    '@babel/polyfill',
     `${src}/index.jsx`,
   ],
 
   output: {
     path: dist,
-    filename,
+    filename: 'bundle.js',
   },
 
   devServer: {
+    historyApiFallback: { index: '/dist/index.html' },
     contentBase: 'dist',
+    inline: true,
     port: 8000,
   },
 
@@ -28,7 +30,11 @@ export default {
   module: {
     rules: [
       {
-        test: /\.js/,
+        test: /\.json$/,
+        loader: 'json-loader',
+      },
+      {
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: 'babel-loader',
       },
@@ -37,8 +43,35 @@ export default {
         use: 'url-loader',
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        test: /\.(css|scss)$/,
+        use: [
+          'style-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: [
+                require('postcss-import'),
+                require('postcss-nesting'),
+                require('postcss-cssnext')({
+                  browsers: ['last 3 versions', '> 5%', 'iOS >= 8'],
+                  features: {
+                    customProperties: {
+                      preserve: true,
+                    },
+                    overflowWrap: {
+                      method: 'copy',
+                    },
+                    nesting: false,
+                  },
+                }),
+                require('css-mqpacker'),
+                //require('csswring')
+              ]
+            }
+          }
+        ],
       },
     ],
   },
