@@ -15,7 +15,7 @@ export default {
   },
 
   devServer: {
-    historyApiFallback: { index: '/dist/index.html' },
+    historyApiFallback: true,
     contentBase: 'dist',
     inline: true,
     port: 8000,
