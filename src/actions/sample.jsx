@@ -14,6 +14,20 @@ const fetchSampleFailed = error => (
   }
 );
 
+const setSampleSuccess = data => (
+  {
+    type: 'SET_SAMPLE_SUCCESS',
+    data,
+  }
+);
+
+const setSampleFailed = error => (
+  {
+    type: 'SET_SAMPLE_FAILED',
+    error,
+  }
+);
+
 
 export const fetchSample = () => (
   (dispatch) => {
@@ -32,5 +46,13 @@ export const fetchSample = () => (
       dispatch(fetchSampleFailed(error));
     });
     */
+  }
+);
+
+export const setSample = (data) => (
+  (dispatch) => {
+    setTimeout(() => {
+      dispatch(setSampleSuccess(data));
+    }, 1000);
   }
 );
