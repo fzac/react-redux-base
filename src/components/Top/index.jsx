@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { css } from 'aphrodite';
-import style from './style';
+import CSSModules from 'react-css-modules';
+import style from './style.scss';
 
-export default class Top extends Component {
+class Top extends Component {
   constructor() {
     super();
   }
@@ -10,10 +11,13 @@ export default class Top extends Component {
   render() {
     const { test } = this.props.sample;
     return (
-      <div className={css(style.module)} >
+      <div styleName="module" >
         <h1>Hello</h1>
         <p>test: {test}</p>
       </div>
     )
   }
 }
+
+
+export default CSSModules(Top, style, { allowMultiple: true });

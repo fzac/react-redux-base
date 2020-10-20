@@ -22,7 +22,9 @@ export const fetchSample = () => (
       param: 1,
     };
 
-    dispatch(fetchSampleSuccess('ok'));
+    setTimeout(() => {
+      dispatch(fetchSampleSuccess('ok'));
+    }, 3000);
     /*
     return axios.get(url, { params }).then((res) => {
       dispatch(fetchSampleSuccess(res.data));

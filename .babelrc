@@ -1,12 +1,6 @@
 {
   "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "useBuiltIns": "usage",
-        "corejs": 3
-      }
-    ],
+    "@babel/preset-env",
     "@babel/preset-react"
   ],
   "plugins": [
@@ -14,6 +8,7 @@
     "transform-async-to-generator",
     "transform-class-properties",
     "@babel/plugin-proposal-object-rest-spread",
-    "transform-export-extensions"
+    "transform-export-extensions",
+    ["@babel/plugin-proposal-decorators", { "legacy": true }]
   ]
 }
