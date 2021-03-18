@@ -56,3 +56,9 @@ export const setSample = (data) => (
     }, 1000);
   }
 );
+
+export const getTime = (time) => (
+  (dispatch) => {
+
+  }
+);

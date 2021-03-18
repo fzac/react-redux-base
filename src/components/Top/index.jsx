@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
-import { css } from 'aphrodite';
 import CSSModules from 'react-css-modules';
 import style from './style.scss';
+import _ from 'lodash';
+
 
 class Top extends Component {
   constructor() {
     super();
     this.state = {
-      name: '',
+      text: '表示',
       password: '',
+      time: 0,
+      startTime: null,
+      isModalOpen: false,
     };
-    this.onClickConfirm = this.onClickConfirm.bind(this);
+    this.onClickConFirm = this.onClickConFirm.bind(this);
     this.onClickSet = this.onClickSet.bind(this);
+    this.onClickGet = this.onClickGet.bind(this);
+    this.onClickAdd = this.onClickAdd.bind(this);
+    this.onClickReset = this.onClickReset.bind(this);
+    this.textChange = this.textChange.bind(this);
+    this.handleClickClose = this.handleClickClose.bind(this);
+    this.handleClickOpen = this.handleClickOpen.bind(this);
   }
 
   createOnChange(type) {
@@ -21,7 +31,7 @@ class Top extends Component {
     }
   }
 
-  onClickConfirm() {
+  onClickConFirm() {
     const text = `name: ${this.state.name}, pass: ${this.state.password}`;
     alert(text);
   }
@@ -34,49 +44,46 @@ class Top extends Component {
     this.props.setSample(data);
   }
 
-  render() {
-    const { test } = this.props.sample;
-    return (
-      <div styleName="module" >
-        <h1>Hello</h1>
-        <p>test: {test}</p>
-        <div>
-          <h3>storeのデータ</h3>
-          <div>
-            name: {this.props.sample.name}
-          </div>
-          <div>
-            pass: {this.props.sample.password}
-          </div>
-        </div>
-        <br/><br/>
-        <div>
-          <span>name: </span>
-          <input
-            type="text"
-            onChange={this.createOnChange('name')}
-          />
-        </div>
-        <div>
-          <span>password: </span>
-          <input
-            type="password"
-            onChange={this.createOnChange('password')}
-          />
-        </div>
+  onClickGet() {
+    const time = _.clone(this.state.time);
+    time.push(new Date());
+    this.setState({time: time});
+  }
 
-        <button
-          onClick={this.onClickConfirm}
-        >
-          確認
-        </button>
-        <button
-          onClick={this.onClickSet}
-        >
-          SET
-        </button>
-      </div>
-    )
+  onClickAdd() {
+    if (this.state.startTime) {
+      const time = (Date.now() - this.state.startTime) / 1000;
+      this.setState({time: time + this.state.time, startTime: null})
+    } else {
+      this.setState({startTime: Date.now()});
+    }
+  }
+
+  onClickReset() {
+    this.setState({time: 0});
+  }
+
+  textChange() {
+    if (this.state.text === '表示') {
+      this.setState({ text: '非表示' });
+    } else if (this.state.text === '非表示') {
+      this.setState({ text: '表示' });
+    }
+  }
+
+  handleClickOpen() {
+    this.setState({ isModalOpen: true });
+  }
+
+  handleClickClose() {
+    this.setState({ isModalOpen: false });
+  }
+
+
+  render() {
+    return (
+      <h1>hello world</h1>
+    );
   }
 }
 

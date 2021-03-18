@@ -14,6 +14,7 @@ class App extends Component {
           <Routes />
         </Provider>
       </div>
+
     );
   }
 }
